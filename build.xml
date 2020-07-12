@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jrapl" default="compile">
+	<target name="init">
+    <property name="package.dir" value="jrapl"/>
+    <property name="src.dir" value="src/java"/>
+    <property name="build.dir" value="build"/>
+    <property name="build.classes.dir" value="${build.dir}/classes"/>
+    <property name="runtime.jar" location="jrapl.jar"/>
+  </target>
+
+	<target name="clean" depends="init" description="remove build files created this script">
+		<delete dir="${build.dir}"/>
+		<delete file="jrapl.jar"/>
+  </target>
+
+	<target name="setup" depends="init" description="create directories for compilation">
+		<mkdir dir="${build.dir}"/>
+	</target>
+
+  <target name="native" depends="init" description="create directories for compilation">
+		<exec executable="make" dir="src/jrapl"/>
+	</target>
+
+	<target name="compile" depends="init" description="compile jrapl source">
+		<mkdir dir="${build.classes.dir}"/>
+		<javac
+      source="1.9" target="1.9"
+      srcdir="${src.dir}"
+      destdir="${build.classes.dir}"
+		>
+		</javac>
+		<copy todir="build/classes/jrapl">
+      <fileset dir="src/jrapl" includes="*.so"/>
+    </copy>
+    <copy todir="build/classes">
+      <fileset dir="src/jrapl" includes="*.h"/>
+    </copy>
+	</target>
+
+  <target name="jar" depends="compile">
+		<jar jarfile="${runtime.jar}" basedir="${build.classes.dir}" manifest="manifest.txt"/>
+  </target>
+</project>
