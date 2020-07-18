@@ -63,7 +63,7 @@ write_freq_all_cores(int cores, char filename[cores][60], const char *cur_freq, 
 	int cpu_freq[cores];
 	int scal_cpufreq[cores];
 
-	for(i = 0; i < cores; i++) { 
+	for(i = 0; i < cores; i++) {
 		f[i] = fopen(filename[i], "w");
 		if (f[i] == NULL) {
 			//LOGI("Failed to open %s: %s", filename, strerror(errno));
@@ -94,7 +94,7 @@ write_freq_all_cores(int cores, char filename[cores][60], const char *cur_freq, 
 			printf("Failed to open %s", cur_freq);
 			return 1;
 		}
-		
+
 		fscanf(f[i], "%d", &cpu_freq[i]);
 		rc= fclose(f[i]);
 		f[i] = fopen(scal_freq, "r");

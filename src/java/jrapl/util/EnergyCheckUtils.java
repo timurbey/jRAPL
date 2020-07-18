@@ -30,9 +30,11 @@ public class EnergyCheckUtils {
 		}
 
 		try {
+			// for ant builds
 			NativeUtils.loadLibraryFromJar("/jrapl/libCPUScaler.so");
 		} catch (Exception e) {
-			e.printStackTrace();
+			// for bazel builds
+			System.loadLibrary("CPUScaler");
 		}
 
 		ENERGY_WRAP_AROUND = ProfileInit();
