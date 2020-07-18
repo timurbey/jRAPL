@@ -73,14 +73,14 @@ write_freq_all_cores(int cores, char filename[cores][60], const char *cur_freq, 
 
 	//    data_length = strlen(freq);
 	 //   data_written = fwrite(freq, 1, data_length, f); //For binary code
-		data_length = get_pos_intnum(freq);
+		// data_length = get_pos_intnum(freq);
 		data_written = fprintf(f[i], "%d", freq);  //For integer
 
-		if (data_length != data_written) {
-			//LOGI("Failed to write to %s: %s", filename, strerror(errno));
-			printf("Failed to write %s", filename[i]);
-			return 1;
-		}
+		// if (data_length != data_written) {
+		// 	//LOGI("Failed to write to %s: %s", filename, strerror(errno));
+		// 	printf("Failed to write %s", filename[i]);
+		// 	return 1;
+		// }
 
 		rc = fclose(f[i]);
 		if (rc != 0) {
