@@ -67,7 +67,7 @@ public final class EnergyStats {
   @Override
   public String toString() {
     return String.join(
-      "\n",
+      ", ",
       "Socket: " + String.format("%d", socket),
       "CPU: " + String.format("%.4f", cpu),
       "Package: " + String.format("%.4f", pkg),
@@ -79,10 +79,14 @@ public final class EnergyStats {
 		while(true) {
       EnergyStats[] next = EnergyStats.get();
       for (int i = 0; i < SOCKETS; i++) {
-        System.out.println(next[i].difference(last[i]));
+        EnergyStats diff = next[i].difference(last[i]);
+        System.out.println(diff);
+        if (diff.getCpu() < 0 || diff.getPackage() < 0 || diff.getDram() < 0) {
+          throw new RuntimeException("got a negative value!");
+        }
 			}
       last = next;
-			Thread.sleep(100);
+			Thread.sleep(4);
 		}
 	}
 }

@@ -10,7 +10,7 @@ java_binary(
     name = "run_energy_stats",
     srcs = ["src/java/jrapl/EnergyStats.java"],
     deps = [":jRAPL"],
-    data = ["//src/jrapl:libCPUScaler.so"],
+    resources = ["//src/jrapl:libCPUScaler.so"],
     jvm_flags = ["-Djava.library.path=src/jrapl"],
     main_class = "jrapl.EnergyStats",
 )
