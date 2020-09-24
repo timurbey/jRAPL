@@ -33,7 +33,6 @@ void copy_to_string(char *ener_info, char uncore_buffer[60], int uncore_num, cha
 	} else {
 		memcpy(ener_info + *offset + uncore_num + cpu_num + 2, &package_buffer, package_num + 1);
 	}
-
 }
 
 
