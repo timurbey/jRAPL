@@ -5,14 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
+/** Class that provides a static interface to RAPL measurements. */
 public class Rapl {
   private static native int ProfileInit();
 
   private static native int GetSocketNum();
-
-  private static native void ProfileDealloc();
 
   private static native String EnergyStatCheck();
 
@@ -34,7 +32,7 @@ public class Rapl {
         throw new FileNotFoundException("Could not find library " + library + " in jar.");
       }
       // Open output stream and copy data between source file in JAR and the temporary file
-      try (OutputStream os = new FileOutputStream(temp)) {
+      try (FileOutputStream os = new FileOutputStream(temp)) {
         try {
           while ((readBytes = is.read(buffer)) != -1) {
             os.write(buffer, 0, readBytes);
@@ -53,7 +51,6 @@ public class Rapl {
   static {
     try {
       loadFromJar("/jrapl/libCPUScaler.so");
-
       WRAP_AROUND_ENERGY = ProfileInit();
       SOCKET_COUNT = GetSocketNum();
     } catch (IOException e) {
@@ -98,10 +95,6 @@ public class Rapl {
 
       return stats;
     }
-  }
-
-  public static void DeallocProfile() {
-    ProfileDealloc();
   }
 
   private Rapl() {}
