@@ -17,27 +17,22 @@
 		<mkdir dir="${build.dir}"/>
 	</target>
 
-  <target name="native" depends="init" description="create directories for compilation">
-		<exec executable="make" dir="src/jrapl"/>
+  <target name="jni" depends="init" description="create directories for compilation">
+		<exec executable="make"/>
 	</target>
 
-	<target name="compile" depends="init" description="compile jrapl source">
+	<target name="compile" depends="setup" description="compile jrapl source">
 		<mkdir dir="${build.classes.dir}"/>
 		<javac
       source="1.9" target="1.9"
       srcdir="${src.dir}"
       destdir="${build.classes.dir}"
-		>
-		</javac>
-		<copy todir="build/classes/jrapl">
-      <fileset dir="src/jrapl" includes="*.so"/>
-    </copy>
-    <copy todir="build/classes">
-      <fileset dir="src/jrapl" includes="*.h"/>
-    </copy>
+		/>
 	</target>
 
-  <target name="jar" depends="compile">
-		<jar jarfile="${runtime.jar}" basedir="${build.classes.dir}" manifest="manifest.txt"/>
+  <target name="release" depends="compile,jni">
+		<move file="libCPUScaler.so" todir="${build.classes.dir}/${package.dir}"/>
+		<jar jarfile="${runtime.jar}" basedir="${build.classes.dir}"/>
+		<delete dir="${build.dir}"/>
   </target>
 </project>
