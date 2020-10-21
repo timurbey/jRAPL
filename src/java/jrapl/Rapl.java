@@ -48,8 +48,10 @@ public class Rapl {
   // value to add to energy diffs after underflow
   public static double WRAP_AROUND_ENERGY = 0;
 
+  private static Object lock = new Object();
+
   static {
-    synchronized (SOCKET_COUNT) {
+    synchronized (lock) {
       if (SOCKET_COUNT < 0) {
         try {
           loadFromJar("/jrapl/libCPUScaler.so");
