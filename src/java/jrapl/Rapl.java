@@ -44,18 +44,22 @@ public class Rapl {
     }
   }
 
-  public static int SOCKET_COUNT = 0;
+  public static int SOCKET_COUNT = -1;
   // value to add to energy diffs after underflow
   public static double WRAP_AROUND_ENERGY = 0;
 
   static {
-    try {
-      loadFromJar("/jrapl/libCPUScaler.so");
-      WRAP_AROUND_ENERGY = ProfileInit();
-      SOCKET_COUNT = GetSocketNum();
-    } catch (IOException e) {
-      System.out.println("Unable to load jRAPL");
-      e.printStackTrace();
+    synchronized (SOCKET_COUNT) {
+      if (SOCKET_COUNT < 0) {
+        try {
+          loadFromJar("/jrapl/libCPUScaler.so");
+          WRAP_AROUND_ENERGY = ProfileInit();
+          SOCKET_COUNT = GetSocketNum();
+        } catch (IOException e) {
+          System.out.println("Unable to load jRAPL");
+          e.printStackTrace();
+        }
+      }
     }
   }
 
