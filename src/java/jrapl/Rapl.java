@@ -53,15 +53,10 @@ public class Rapl {
   public static void loadRapl(String path) {
     synchronized (lock) {
       if (SOCKET_COUNT < 0) {
-        try {
-          System.load(path);
-          // loadFromJar("/jrapl/libCPUScaler.so");
-          WRAP_AROUND_ENERGY = ProfileInit();
-          SOCKET_COUNT = GetSocketNum();
-        } catch (IOException e) {
-          System.out.println("Unable to load jRAPL");
-          e.printStackTrace();
-        }
+        System.load(path);
+        // loadFromJar("/jrapl/libCPUScaler.so");
+        WRAP_AROUND_ENERGY = ProfileInit();
+        SOCKET_COUNT = GetSocketNum();
       }
     }
   }
