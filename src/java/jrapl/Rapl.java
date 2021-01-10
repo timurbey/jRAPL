@@ -50,7 +50,7 @@ public class Rapl {
 
   private static Object lock = new Object();
 
-  public static loadRapl(String path) {
+  public static void loadRapl(String path) {
     synchronized (lock) {
       if (SOCKET_COUNT < 0) {
         try {
