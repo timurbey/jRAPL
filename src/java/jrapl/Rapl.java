@@ -50,11 +50,12 @@ public class Rapl {
 
   private static Object lock = new Object();
 
-  static {
+  public static loadRapl(String path) {
     synchronized (lock) {
       if (SOCKET_COUNT < 0) {
         try {
-          loadFromJar("/jrapl/libCPUScaler.so");
+          System.load(path);
+          // loadFromJar("/jrapl/libCPUScaler.so");
           WRAP_AROUND_ENERGY = ProfileInit();
           SOCKET_COUNT = GetSocketNum();
         } catch (IOException e) {
