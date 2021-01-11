@@ -16,7 +16,7 @@ java_binary(
   runtime_deps = [
     ":jrapl"
   ],
-  resources = [
+  data = [
     "//src/jrapl:libCPUScaler.so",
   ],
 )
