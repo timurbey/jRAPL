@@ -91,7 +91,7 @@ public final class Rapl {
   }
 
   public static void main(String[] args) {
-    for (double[] socketEnergy : getInstance("/src/jrapl/libCPUScaler.so").getEnergyStats()) {
+    for (double[] socketEnergy : getInstance().getEnergyStats()) {
       for (double componentEnergy : socketEnergy) {
         System.out.println(componentEnergy);
       }

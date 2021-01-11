@@ -17,6 +17,13 @@ java_binary(
     ":jrapl"
   ],
   data = [
-    "//src/jrapl:libCPUScaler.so",
+    ":cpu-scaler-lib",
   ],
+)
+
+genrule(
+  name = "cpu-scaler-lib",
+  srcs = ["//src/jrapl:libCPUScaler.so"],
+  outs = ["libCPUScaler.so"],
+  cmd = "cp -f $< $@",
 )
