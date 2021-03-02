@@ -1,14 +1,5 @@
 package jrapl;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import java.io.File;
-import java.util.Arrays;
-
 /** Class that provides a static interface to RAPL measurements. */
 public final class Rapl {
   private static Rapl instance;
@@ -33,7 +24,9 @@ public final class Rapl {
   }
 
   private native int ProfileInit();
+
   private native int GetSocketNum();
+
   private native String EnergyStatCheck();
 
   private final int socketCount;
@@ -49,7 +42,7 @@ public final class Rapl {
    *     <p>subarray structure is architecture dependent. Typically, 0 -> dram, 1 -> cpu, 2 ->
    *     package.
    */
-  public double[][] getEnergyStats() {
+  public synchronized double[][] getEnergyStats() {
     // guard if CPUScaler isn't available
     if (socketCount < 0) {
       return new double[0][0];
