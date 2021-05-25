@@ -19,6 +19,9 @@ java_binary(
   data = [
     ":cpu-scaler-lib",
   ],
+  jvm_flags = [
+    "-Djava.library.path=src/java/jrapl"
+  ]
 )
 
 genrule(
