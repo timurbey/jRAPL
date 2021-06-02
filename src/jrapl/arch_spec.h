@@ -14,13 +14,14 @@
 #define IVYBRIDGE            0x3AU
 #define SKYLAKE1             0x4EU
 #define SKYLAKE2             0x5EU
-#define HASWELL1			 0x3CU
-#define HASWELL2			 0x45U
-#define HASWELL3			 0x46U
-#define HASWELL_EP			 0x3FU
+#define SKYLAKE3             0x55U
+#define HASWELL1			       0x3CU
+#define HASWELL2			       0x45U
+#define HASWELL3			       0x46U
+#define HASWELL_EP			     0x3FU
 #define BROADWELL			       0xD4U
-#define BROADWELL2	     0x4FU
-#define CPUID                              \
+#define BROADWELL2	         0x4FU
+#define CPUID                                             \
     __asm__ volatile ("cpuid"                             \
 			: "=a" (eax),     \
 			"=b" (ebx),     \
@@ -48,7 +49,7 @@ extern uint32_t cpu_model;
 int read_time = 0;
 uint64_t max_pkg = 0;
 uint64_t num_core_thread = 0; //number of physical threads per core
-uint64_t num_pkg_thread = 0; //number of physical threads per package 
+uint64_t num_pkg_thread = 0; //number of physical threads per package
 uint64_t num_pkg_core = 0; //number of cores per package
 uint64_t num_pkg = 0; //number of packages for current machine
 */
@@ -58,7 +59,7 @@ extern int core;
 extern int read_time;
 extern uint64_t max_pkg;
 extern uint64_t num_core_thread; //number of physical threads per core
-extern uint64_t num_pkg_thread; //number of physical threads per package 
+extern uint64_t num_pkg_thread; //number of physical threads per package
 extern uint64_t num_pkg_core; //number of cores per package
 extern uint64_t num_pkg; //number of packages for current machine
 
@@ -67,7 +68,7 @@ extern int coreNum;
 //void
 //get_cpu_model(void);
 
-void 
+void
 parse_apic_id(cpuid_info_t info_l0, cpuid_info_t info_l1, APIC_ID_t *my_id);
 
 void cpuid(uint32_t eax_in, uint32_t ecx_in, cpuid_info_t *ci);

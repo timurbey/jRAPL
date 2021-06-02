@@ -106,6 +106,7 @@ initialize_energy_info(char gpu_buffer[num_pkg][60], char dram_buffer[num_pkg][6
 			case HASWELL_EP:
 			case SKYLAKE1:
 			case SKYLAKE2:
+			case SKYLAKE3:
 			case BROADWELL:
 			case BROADWELL2:
 
