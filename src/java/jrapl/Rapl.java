@@ -1,6 +1,6 @@
 package jrapl;
 
-/** Class that provides a static interface to RAPL measurements. */
+/** Class that provides a singleton interface to RAPL measurements. */
 public final class Rapl {
   private static Rapl instance;
 
@@ -8,22 +8,38 @@ public final class Rapl {
     return getInstance(null);
   }
 
-  public static synchronized Rapl getInstance(String path) {
-    if (instance != null) {
+  /** Returns the rapl instance, creating a new one if necessary. */
+  public static Rapl getInstance(String path) {
+    synchronized (instance) {
+      if (instance != null) {
+        return instance;
+      }
+
+      if (path == null) {
+        System.loadLibrary("CPUScaler");
+      } else {
+        System.load(path);
+      }
+
+      instance = new Rapl();
       return instance;
     }
+  }
 
-    if (path == null) {
-      System.loadLibrary("CPUScaler");
-    } else {
-      System.load(path);
+  /** Shuts down the instance. */
+  public static void shutdown() {
+    synchronized (instance) {
+      if (instance == null) {
+        return;
+      }
+      instance.ProfileDealloc();
+      instance = null;
     }
-
-    instance = new Rapl();
-    return instance;
   }
 
   private native int ProfileInit();
+
+  private native int ProfileDealloc();
 
   private native int GetSocketNum();
 
