@@ -10,7 +10,7 @@ public final class Rapl {
 
   /** Returns the rapl instance, creating a new one if necessary. */
   public static Rapl getInstance(String path) {
-    synchronized (instance) {
+    synchronized (Rapl.class) {
       if (instance != null) {
         return instance;
       }
@@ -28,7 +28,7 @@ public final class Rapl {
 
   /** Shuts down the instance. */
   public static void shutdown() {
-    synchronized (instance) {
+    synchronized (Rapl.class) {
       if (instance == null) {
         return;
       }
